@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
+  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/idt/idt.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/idt/idt.c",
+  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/idt/idt.c",
+  "output": "CMakeFiles/main.dir/src/idt/idt.c.o"
+},
+{
+  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
+  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/kernel.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/kernel.c",
+  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/kernel.c",
+  "output": "CMakeFiles/main.dir/src/kernel.c.o"
+},
+{
+  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
+  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/memory/memory.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/memory/memory.c",
+  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/memory/memory.c",
+  "output": "CMakeFiles/main.dir/src/memory/memory.c.o"
+}
+]
