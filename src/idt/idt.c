@@ -4,7 +4,7 @@
 #include "memory/memory.h"
 #include "io/io.h"
 
-struct idt_desc idt_descriptors[PEN15_TOTAL_INTERRUPTS];
+struct idt_desc idt_descriptors[PEN1X_TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;
 
 extern void idt_load(struct idtr_desc* ptr);
@@ -41,7 +41,7 @@ void idt_init()
     idtr_descriptor.limit = sizeof(idt_descriptors) -1;
     idtr_descriptor.base = (uint32_t) idt_descriptors;
 
-    for(int i = 0; i < PEN15_TOTAL_INTERRUPTS; ++i){
+    for(int i = 0; i < PEN1X_TOTAL_INTERRUPTS; ++i){
         idt_set(i, no_interrupt);
     }
     idt_set(0, idt_zero);

@@ -1,20 +1,38 @@
 [
 {
-  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
-  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/idt/idt.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/idt/idt.c",
-  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/idt/idt.c",
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/idt/idt.c.o -c /home/tera/Projects/Pen1X/src/idt/idt.c",
+  "file": "/home/tera/Projects/Pen1X/src/idt/idt.c",
   "output": "CMakeFiles/main.dir/src/idt/idt.c.o"
 },
 {
-  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
-  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/kernel.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/kernel.c",
-  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/kernel.c",
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/kernel.c.o -c /home/tera/Projects/Pen1X/src/kernel.c",
+  "file": "/home/tera/Projects/Pen1X/src/kernel.c",
   "output": "CMakeFiles/main.dir/src/kernel.c.o"
 },
 {
-  "directory": "/home/tera/School/kernelSamNeVemImenaSe/build",
-  "command": "/usr/bin/cc  -I/home/tera/School/kernelSamNeVemImenaSe/include  -o CMakeFiles/main.dir/src/memory/memory.c.o -c /home/tera/School/kernelSamNeVemImenaSe/src/memory/memory.c",
-  "file": "/home/tera/School/kernelSamNeVemImenaSe/src/memory/memory.c",
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/memory/heap/heap.c.o -c /home/tera/Projects/Pen1X/src/memory/heap/heap.c",
+  "file": "/home/tera/Projects/Pen1X/src/memory/heap/heap.c",
+  "output": "CMakeFiles/main.dir/src/memory/heap/heap.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/memory/heap/kheap.c.o -c /home/tera/Projects/Pen1X/src/memory/heap/kheap.c",
+  "file": "/home/tera/Projects/Pen1X/src/memory/heap/kheap.c",
+  "output": "CMakeFiles/main.dir/src/memory/heap/kheap.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/memory/memory.c.o -c /home/tera/Projects/Pen1X/src/memory/memory.c",
+  "file": "/home/tera/Projects/Pen1X/src/memory/memory.c",
   "output": "CMakeFiles/main.dir/src/memory/memory.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/memory/paging/paging.c.o -c /home/tera/Projects/Pen1X/src/memory/paging/paging.c",
+  "file": "/home/tera/Projects/Pen1X/src/memory/paging/paging.c",
+  "output": "CMakeFiles/main.dir/src/memory/paging/paging.c.o"
 }
 ]
