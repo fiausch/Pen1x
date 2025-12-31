@@ -12,7 +12,7 @@ extern void int21h();
 extern void no_interrupt();
 
 void int21h_handler(){
-    print("key pressed\n");
+    print("Key pressed!\n");
     outb(0x20, 0x20);
 }
 
