@@ -8,6 +8,7 @@
 #include "disk/disk.h"
 #include "string/string.h"
 #include "fs/pparser.h"
+#include "disk/streamer.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -88,10 +89,6 @@ void kernel_main()
 
     enable_interrupts(); // enable interrupts, if we enable them before the idt shit happens
 
-    struct path_root* root_path = pathparser_parse("0:/bin/shell.exe", NULL);
-    if(root_path){
-
-    }
 }
 
 
@@ -117,5 +114,19 @@ FUNCIOTNALITY:
 
     02: READING FROM DISK: 
     char buf[512];
+
+
+
+
+    03: PATH PARSING:
+    struct path_root* root_path = pathparser_parse("0:/bin/shell.exe", NULL);
+    
+
+    04: DISK STREAM READING:
+    struct disk_stream* stream = diskstreamer_new(0);
+    diskstreamer_seek(stream, 0x21C);
+    char c = 0;
+    diskstreamer_read(stream, &c,1);
+
 
 */
