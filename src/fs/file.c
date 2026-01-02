@@ -3,6 +3,7 @@
 #include "kernel.h"
 #include "memory/heap/kheap.h"
 #include "memory/memory.h"
+#include "fs/fat/fat16.h"
 #include "status.h"
 
 struct filesystem* filesystems[PEN1X_MAX_FILESYSTEMS];
@@ -37,8 +38,7 @@ void fs_insert_filesystem(struct filesystem* filesystem){
 }
 
 static void fs_static_load(){
-    //fs_insert_filesystem(fat16_init());
-
+    fs_insert_filesystem(fat16_init());
 }
 
 void fs_load(){

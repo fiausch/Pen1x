@@ -9,6 +9,7 @@
 #include "string/string.h"
 #include "fs/pparser.h"
 #include "disk/streamer.h"
+#include "fs/file.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -69,6 +70,9 @@ void kernel_main()
     terminal_initialize();
     print("PEN1X 0.0.1\n");
     
+    print("Initializing filesystems");
+    fs_init();
+
     print("Initializing heap\n");
     //initialize the heap
     kheap_init();
@@ -101,6 +105,9 @@ void kernel_main()
 
     enable_interrupts(); // enable interrupts, if we enable them before the idt shit happens
 
+    char buf[20];
+    strcpy(buf, "hello!");
+    print(buf);
 }
 
 
