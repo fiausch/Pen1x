@@ -1,4 +1,5 @@
 #include "disk/disk.h"
+#include "fs/file.h"
 #include "io/io.h"
 #include "config.h"
 #include "status.h"
@@ -34,6 +35,7 @@ void disk_search_and_init(){
     memset(&disk, 0, sizeof(disk));
     disk.type = PEN1X_DISK_TYPE_REAL;
     disk.sector_size = PEN1X_SECTOR_SIZE;
+    disk.filesystem = fs_resolve(&disk);
 }
 
 struct disk* disk_get(int index){

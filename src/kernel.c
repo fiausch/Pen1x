@@ -69,13 +69,15 @@ void kernel_main()
     terminal_initialize();
     print("PEN1X 0.0.1\n");
     
+    print("Initializing heap\n");
     //initialize the heap
     kheap_init();
     
+    print("Initializing disks\n");
     // Search and initialize the disks
     disk_search_and_init();
-
-
+    
+    print("Initializing IDT\n");
     idt_init();// Initialize the interrupt descriptor table
 
     //setup paging
@@ -83,9 +85,19 @@ void kernel_main()
 
     // Switch to kernel paging chunk
     paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
-
+    
+    print("Initializing Paging\n");
     //enable paging
     enable_paging();
+    
+    //just pointer size check
+    for(int i = 0; i < sizeof(void*); ++i){
+        print("1 ");
+    }
+    print("Success\n");
+    
+    terminal_initialize();
+    print("PEN1X 0.0.1\n");
 
     enable_interrupts(); // enable interrupts, if we enable them before the idt shit happens
 
