@@ -223,9 +223,13 @@ static void fat16_init_private(struct disk* disk, struct fat_private* private){
 
 int fat16_resolve(struct disk* disk){
     int res = 0;
+
     struct fat_private* fat_private = kzalloc(sizeof(struct fat_private));
     fat16_init_private(disk, fat_private);
 
+    disk->fs_private = fat_private;
+    disk->filesystem = &fat16fs;
+    
     struct disk_stream* stream = diskstreamer_new(disk->id);
     if(!stream){
         res = -ENOMEM;
@@ -247,8 +251,6 @@ int fat16_resolve(struct disk* disk){
         goto out;
     }
 
-    disk->fs_private = fat_private;
-    disk->filesystem = &fat16fs;
 
 
 out:
