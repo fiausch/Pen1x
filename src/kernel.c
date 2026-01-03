@@ -101,7 +101,8 @@ void kernel_main()
     {
         print("We opened hello.txt\n");
         char buf[14];
-        fread(buf, 14, 1,fd);
+        fseek(fd, 2, SEEK_SET);
+        fread(buf, 11, 1,fd);
         print(buf);
     }
     while(1) {}
