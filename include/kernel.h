@@ -4,11 +4,10 @@
 #define VGA_WIDTH 80
 #define VGA_HEIGHT 20
 
-#define PEN1X_MAX_PATH 128
+#define PEN1X_MAX_PATH 108
 
 void kernel_main();
 void print(const char* str);
-void divbyzero();
 
 #define ERROR(value) (void*)(value)
 #define ERROR_I(value) (int)(value)

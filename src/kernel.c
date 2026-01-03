@@ -2,15 +2,13 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "idt/idt.h"
-#include "io/io.h"
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
-#include "disk/disk.h"
 #include "string/string.h"
+#include "fs/file.h"
+#include "disk/disk.h"
 #include "fs/pparser.h"
 #include "disk/streamer.h"
-#include "fs/file.h"
-#include "fs/fat/fat16.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -57,6 +55,8 @@ void terminal_initialize()
     }   
 }
 
+
+
 void print(const char* str)
 {
     size_t len = strlen(str);
@@ -65,96 +65,42 @@ void print(const char* str)
         terminal_writechar(str[i], 15);
     }
 }
+
+
 static struct paging_4gb_chunk* kernel_chunk = 0;
 void kernel_main()
 {
     terminal_initialize();
-    
-    print("Initializing filesystems");
+    print("Hello world!\ntest");
+
+    // Initialize the heap
+    kheap_init();
+
+    // Initialize filesystems
     fs_init();
 
-    print("Initializing heap\n");
-    //initialize the heap
-    kheap_init();
-    
-    print("Initializing disks\n");
     // Search and initialize the disks
     disk_search_and_init();
-    
-    print("Initializing IDT\n");
-    idt_init();// Initialize the interrupt descriptor table
 
-    //setup paging
+    // Initialize the interrupt descriptor table
+    idt_init();
+
+    // Setup paging
     kernel_chunk = paging_new_4gb(PAGING_IS_WRITEABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
-
+    
     // Switch to kernel paging chunk
     paging_switch(paging_4gb_chunk_get_directory(kernel_chunk));
-    
-    print("Initializing Paging\n");
-    //enable paging
+
+    // Enable paging
     enable_paging();
     
-    //just pointer size check
-    for(int i = 0; i < sizeof(void*); ++i){
-        print("1 ");
-    }
-    print("Success\n");
-    
-    print("PEN1X 0.0.1\n");
+    // Enable the system interrupts
+    enable_interrupts();
 
     int fd = fopen("0:/hello.txt", "r");
-    if(fd){
-        print("we opened hello.txt");
+    if (fd)
+    {
+        print("We opened hello.txt\n");
     }
-    while(1){}
-
-    enable_interrupts(); // enable interrupts, if we enable them before the idt shit happens
-
-
+    while(1) {}
 }
-
-
-/*
-FUNCIOTNALITY:
-
-    01: PAGING:
-
-    char* ptr = kzalloc(4096);
-    paging_set(paging_4gb_chunk_get_directory(kernel_chunk), (void*)0x1000, (uint32_t)ptr |PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITEABLE);
-  
-    //enable paging
-    enable_paging();
-
-    char* ptr2 = (char*)0x1000;
-    ptr2[0] = 'A';
-    ptr2[1] = 'B';
-    print(ptr2);
-    print(ptr);
-
-    0x1000 points to 0x1000000
-    0x1000000 points to 0x1000000
-
-    02: READING FROM DISK: 
-    char buf[512];
-
-
-
-
-    03: PATH PARSING:
-    struct path_root* root_path = pathparser_parse("0:/bin/shell.exe", NULL);
-    
-
-    04: DISK STREAM READING:
-    struct disk_stream* stream = diskstreamer_new(0);
-    diskstreamer_seek(stream, 0x21C);
-    char c = 0;
-    diskstreamer_read(stream, &c,1);
-
-    05:STRINGS:
-    05.01 STRING COPY:
-    char buf[20];
-    strcpy(buf, "hello!");
-    print(buf);
-
-
-*/

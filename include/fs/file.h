@@ -1,16 +1,20 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include "fs/pparser.h"
+#include "pparser.h"
+
 typedef unsigned int FILE_SEEK_MODE;
-enum{
+enum
+{
     SEEK_SET,
     SEEK_CUR,
     SEEK_END
 };
 
+
 typedef unsigned int FILE_MODE;
-enum{
+enum
+{ 
     FILE_MODE_READ,
     FILE_MODE_WRITE,
     FILE_MODE_APPEND,
@@ -18,33 +22,34 @@ enum{
 };
 
 struct disk;
-typedef void*(*FS_OPEN_FUNCTION)(struct disk* disk, struct path_part* part, FILE_MODE mode_str);
-typedef int(*FS_RESOLVE_FUNCTION)(struct disk* disk);
+typedef void*(*FS_OPEN_FUNCTION)(struct disk* disk, struct path_part* path, FILE_MODE mode);
+typedef int (*FS_RESOLVE_FUNCTION)(struct disk* disk);
 
 
-struct filesystem{
-    //Filesystem should return zero from resolve if the provided disk is using its own fs
+struct filesystem
+{
+    // Filesystem should return zero from resolve if the provided disk is using its filesystem
     FS_RESOLVE_FUNCTION resolve;
     FS_OPEN_FUNCTION open;
 
     char name[20];
 };
 
-struct file_descriptor{
-    //The descriptor index
+struct file_descriptor
+{
+    // The descriptor index
     int index;
     struct filesystem* filesystem;
-    
-    //private data
+
+    // Private data for internal file descriptor
     void* private;
 
-    //The disk that the file descriptor should be used on
+    // The disk that the file descriptor should be used on
     struct disk* disk;
 };
 
 void fs_init();
-int fopen(const char* filename, const char* mode);
+int fopen(const char* filename, const char* mode_str);
 void fs_insert_filesystem(struct filesystem* filesystem);
 struct filesystem* fs_resolve(struct disk* disk);
-
 #endif

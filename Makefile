@@ -4,17 +4,17 @@ FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -fa
 FLAGS-CLANG = -g  -target i686 -ffreestanding -O0 -Wall
 CC-GCC = i686-elf-gcc $(FLAGS-GCC)
 CC-CLANG = clang $(FLAGS-CLANG)
-CC = $(CC-CLANG)
+CC = $(CC-GCC)
 LINKER = i686-elf-ld
 
-all-gcc: ./bin/boot.bin ./bin/kernel.bin
+all: ./bin/boot.bin ./bin/kernel.bin
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
 	dd if=/dev/zero bs=1048576 count=16 >> ./bin/os.bin
 	sudo mount -t vfat ./bin/os.bin /mnt/d
-	# Copy file over
-	sudo cp ./HelloWorld.txt /mnt/d
+	# Copy a file over
+	sudo cp ./hello.txt /mnt/d
 	sudo umount /mnt/d
 
 ./bin/kernel.bin: $(FILES)
@@ -73,16 +73,6 @@ all-gcc: ./bin/boot.bin ./bin/kernel.bin
 ./build/fs/fat/fat16.o: ./src/fs/fat/fat16.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/fs/fat/fat16.c -o ./build/fs/fat/fat16.o
 
-
-all-clang:./bin/boot.bin ./bin/kernel.bin
-	rm -rf ./bin/os.bin
-	dd if=./bin/boot.bin >> ./bin/os.bin
-	dd if=./bin/kernel.bin >> ./bin/os.bin
-	dd if=/dev/zero bs=1048576 count=16 >> ./bin/os.bin
-	sudo mount -t vfat ./bin/os.bin /mnt/d
-	# Copy file over
-	sudo cp ./HelloWorld.txt /mnt/d
-	sudo umount /mnt/d
 
 
 

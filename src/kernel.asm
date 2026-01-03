@@ -1,8 +1,6 @@
 [BITS 32]
 
 global _start
-global divbyzero
-
 extern kernel_main
 
 CODE_SEG equ 0x08
@@ -27,19 +25,15 @@ _start:
     mov al, 00010001b
     out 0x20, al ; Tell master PIC
 
-    mov al, 0x20 ; int 0x20 is where the master ISR should start
+    mov al, 0x20 ; Interrupt 0x20 is where master ISR should start
     out 0x21, al
 
     mov al, 00000001b
     out 0x21, al
-    ; end master PIC remap
-    
+    ; End remap of the master PIC
+
     call kernel_main
 
     jmp $
-
-divbyzero:
-    mov edx, 0
-    div edx
 
 times 512-($ - $$) db 0
