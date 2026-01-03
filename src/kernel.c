@@ -10,6 +10,7 @@
 #include "fs/pparser.h"
 #include "disk/streamer.h"
 #include "fs/file.h"
+#include "fs/fat/fat16.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -68,7 +69,6 @@ static struct paging_4gb_chunk* kernel_chunk = 0;
 void kernel_main()
 {
     terminal_initialize();
-    print("PEN1X 0.0.1\n");
     
     print("Initializing filesystems");
     fs_init();
@@ -100,14 +100,17 @@ void kernel_main()
     }
     print("Success\n");
     
-    terminal_initialize();
     print("PEN1X 0.0.1\n");
+
+    int fd = fopen("0:/hello.txt", "r");
+    if(fd){
+        print("we opened hello.txt");
+    }
+    while(1){}
 
     enable_interrupts(); // enable interrupts, if we enable them before the idt shit happens
 
-    char buf[20];
-    strcpy(buf, "hello!");
-    print(buf);
+
 }
 
 
@@ -146,6 +149,12 @@ FUNCIOTNALITY:
     diskstreamer_seek(stream, 0x21C);
     char c = 0;
     diskstreamer_read(stream, &c,1);
+
+    05:STRINGS:
+    05.01 STRING COPY:
+    char buf[20];
+    strcpy(buf, "hello!");
+    print(buf);
 
 
 */
