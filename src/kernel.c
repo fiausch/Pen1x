@@ -96,11 +96,70 @@ void kernel_main()
     
     // Enable the system interrupts
     enable_interrupts();
+    int fd = fopen("0:/hello.txt", "r");
+    if (fd)
+    {
+        print("We opened hello.txt\n");
+        char buf[14];
+        fread(buf, 14, 1,fd);
+        print(buf);
+    }
+    while(1) {}
+   
+}
+/*
+FUNCIOTNALITY:
 
+    01: PAGING:
+
+    char* ptr = kzalloc(4096);
+    paging_set(paging_4gb_chunk_get_directory(kernel_chunk), (void*)0x1000, (uint32_t)ptr |PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITEABLE);
+  
+    //enable paging
+    enable_paging();
+
+    char* ptr2 = (char*)0x1000;
+    ptr2[0] = 'A';
+    ptr2[1] = 'B';
+    print(ptr2);
+    print(ptr);
+
+    0x1000 points to 0x1000000
+    0x1000000 points to 0x1000000
+
+    02: READING FROM DISK: 
+    char buf[512];
+
+
+
+
+    03: PATH PARSING:
+    struct path_root* root_path = pathparser_parse("0:/bin/shell.exe", NULL);
+    
+
+    04: DISK STREAM READING:
+    struct disk_stream* stream = diskstreamer_new(0);
+    diskstreamer_seek(stream, 0x21C);
+    char c = 0;
+    diskstreamer_read(stream, &c,1);
+
+    05:STRINGS:
+    05.01 STRING COPY:
+    char buf[20];
+    strcpy(buf, "hello!");
+    print(buf);
+
+
+    06:FAT16 OPENING FILES:
     int fd = fopen("0:/hello.txt", "r");
     if (fd)
     {
         print("We opened hello.txt\n");
     }
     while(1) {}
-}
+
+    06:FAT16 READING FILES:
+
+
+
+*/
