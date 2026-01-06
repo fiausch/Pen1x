@@ -54,7 +54,10 @@ void fs_init()
     memset(file_descriptors, 0, sizeof(file_descriptors));
     fs_load();
 }
-
+static void file_free_descriptor(struct file_descriptor* desc){
+    file_descriptors[desc->index-1] = 0x00;
+    kfree(desc);
+}
 static int file_new_descriptor(struct file_descriptor** desc_out)
 {
     int res = -ENOMEM;
@@ -96,7 +99,9 @@ int fclose(int fd){
         goto out;
     }
     res = descriptor->filesystem->close(descriptor->private);
-
+    if(res == PEN1X_ALL_OK){
+        file_free_descriptor(descriptor);
+    }
 out:
     return res;
 }

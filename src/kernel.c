@@ -100,7 +100,8 @@ void kernel_main()
     if(fd){
         struct file_stat s;
         fstat(fd, &s);
-        while(1) {}
+        fclose(fd);
+        print("const char *str");
     }
    
 }
