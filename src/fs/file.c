@@ -75,6 +75,7 @@ static int file_new_descriptor(struct file_descriptor** desc_out)
     return res;
 }
 
+
 static struct file_descriptor* file_get_descriptor(int fd)
 {
     if (fd <= 0 || fd >= PEN1X_MAX_FILE_DESCRIPTORS)
@@ -85,6 +86,19 @@ static struct file_descriptor* file_get_descriptor(int fd)
     // Descriptors start at 1
     int index = fd - 1;
     return file_descriptors[index];
+}
+
+int fclose(int fd){
+    int res = 0;
+    struct file_descriptor* descriptor = file_get_descriptor(fd);
+    if(!descriptor){
+        res =-EIO;
+        goto out;
+    }
+    res = descriptor->filesystem->close(descriptor->private);
+
+out:
+    return res;
 }
 
 struct filesystem* fs_resolve(struct disk* disk)
