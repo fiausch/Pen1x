@@ -4,7 +4,7 @@ FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -fa
 FLAGS-CLANG = -g  -target i686 -ffreestanding -O0 -Wall
 CC-GCC = i686-elf-gcc $(FLAGS-GCC)
 CC-CLANG = clang $(FLAGS-CLANG)
-CC = $(CC-GCC)
+CC = $(CC-CLANG)
 LINKER = i686-elf-ld
 
 all: ./bin/boot.bin ./bin/kernel.bin

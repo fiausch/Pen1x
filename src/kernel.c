@@ -82,7 +82,7 @@ struct gdt_structured gdt_structured[ ] = {
     {.base = 0x00, .limit = 0x00, .type = 0x00},            //NULL Segment
     {.base = 0x00, .limit = 0xFFFFFFFF, .type = 0x9A},      //Kernel code segment
     {.base = 0x00, .limit = 0xFFFFFFFF, . type = 0x92}      //Kernel data segment
-
+//gotta add user segment but whatever
 
 };
 void kernel_main()
