@@ -20,5 +20,5 @@
 
 #define PEN1X_MAX_PATH 108
 
-#define PEN1X_TOTAL_GDT_SEGMENTS 3
+#define PEN1X_TOTAL_GDT_SEGMENTS 6
 #endif

@@ -1,10 +1,10 @@
-FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o
+FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/task/tss.asm.o ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o 
 INCLUDES = -I./include
 FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 FLAGS-CLANG = -g  -target i686 -ffreestanding -O0 -Wall
 CC-GCC = i686-elf-gcc $(FLAGS-GCC)
 CC-CLANG = clang $(FLAGS-CLANG)
-CC = $(CC-CLANG)
+CC = $(CC-GCC)
 LINKER = i686-elf-ld
 
 all: ./bin/boot.bin ./bin/kernel.bin
@@ -16,6 +16,7 @@ all: ./bin/boot.bin ./bin/kernel.bin
 	# Copy a file over
 	sudo cp ./hello.txt /mnt/d
 	sudo umount /mnt/d
+	qemu-system-i386 -hda ./bin/os.bin
 
 ./bin/kernel.bin: $(FILES)
 	$(LINKER) -g -relocatable $(FILES) -o ./build/kernelfull.o
@@ -58,6 +59,9 @@ all: ./bin/boot.bin ./bin/kernel.bin
 ./build/memory/paging/paging.asm.o: ./src/memory/paging/paging.asm
 	nasm -f elf -g ./src/memory/paging/paging.asm -o ./build/memory/paging/paging.asm.o
 
+./build/task/tss.asm.o: ./src/task/tss.asm
+	nasm -f elf -g ./src/task/tss.asm -o ./build/task/tss.asm.o
+
 ./build/disk/disk.o: ./src/disk/disk.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/disk/disk.c -o ./build/disk/disk.o
 
@@ -78,6 +82,24 @@ all: ./bin/boot.bin ./bin/kernel.bin
 
 ./build/gdt/gdt.o: ./src/gdt/gdt.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/gdt/gdt.c -o ./build/gdt/gdt.o
+
+
+
+
+mkdir:
+	mkdir -p ./bin
+	mkdir -p ./build
+	mkdir -p ./build/disk
+	mkdir -p ./build/fs
+	mkdir -p ./build/fs/fat
+	mkdir -p ./build/gdt
+	mkdir -p ./build/idt
+	mkdir -p ./build/io
+	mkdir -p ./build/memory
+	mkdir -p ./build/memory/heap
+	mkdir -p ./build/memory/paging
+	mkdir -p ./build/string
+	mkdir -p ./build/task
 
 
 clean:

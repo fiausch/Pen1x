@@ -7,6 +7,7 @@
 #include "memory/memory.h"
 #include "status.h"
 #include "kernel.h"
+#include "config.h"
 #include <stdint.h>
 
 #define PEN1X_FAT16_SIGNATURE 0x29
