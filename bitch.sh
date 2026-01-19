@@ -5,4 +5,3 @@ export PATH="$PREFIX/bin:$PATH"
 clear
 make clean
 make all -j
-./launchKernelQEMU.sh
