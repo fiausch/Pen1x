@@ -1,4 +1,5 @@
 #include "task/task.h"
+#include "task/process.h"
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "kernel.h"
@@ -13,11 +14,13 @@ struct task* current_task = 0x00;
 struct task* task_tail = 0x00;
 struct task* task_head = 0x00;
 
+int task_init(struct task* task, struct process* process);
+
 struct task* task_call(){
     return current_task;
 }
 
-int task_init(struct task* task){
+int task_init(struct task* task, struct process* process){
     memset(task, 0, sizeof(struct task));
     // Map the entire 4GB address space to itself
     task->page_directory = paging_new_4gb(PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
@@ -27,6 +30,8 @@ int task_init(struct task* task){
     task->registers.ip = PEN1X_PROGRAM_VIRTUAL_ADDRESS;
     task->registers.ss = USER_DATA_SEGMENT;
     task->registers.esp = PEN1X_PROGRAM_VIRTUAL_STACK_ADDRESS_START;
+
+    task->process = process;
 
     return 0;
 }
@@ -66,14 +71,14 @@ int task_free(struct task* task){
 }
 
 
-struct task* task_new(){
+struct task* task_new(struct process* process){
     int res = 0;
     struct task* task = kzalloc(sizeof(struct task));
     if(!task){
         res = -ENOMEM;
         goto out;
     }
-    res = task_init(task);
+    res = task_init(task, process);
     if(res != PEN1X_ALL_OK){
         goto out;
     }
