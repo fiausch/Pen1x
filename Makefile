@@ -7,7 +7,7 @@ CC-CLANG = clang $(FLAGS-CLANG)
 CC = $(CC-GCC)
 LINKER = i686-elf-ld
 
-all: ./bin/boot.bin ./bin/kernel.bin
+all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	rm -rf ./bin/os.bin
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
@@ -109,7 +109,12 @@ mkdir:
 	mkdir -p ./build/string
 	mkdir -p ./build/task
 
+user_programs:
+	cd ./programs/blank && $(MAKE) all
 
-clean:
+user_programs_clean:
+	cd ./programs/blank && $(MAKE) clean
+
+clean: user_programs_clean
 	find ./bin/ -maxdepth 1 -type f -delete
 	find ./build/ -maxdepth 3 -type f -delete
