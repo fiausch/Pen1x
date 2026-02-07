@@ -34,9 +34,6 @@ sudo pacman -S ndisasm bless
 ## setup:
 ```
 git clone https://codeberg.org/fiausch/Pen1X.git
-cd Pen1X
-./bitch.sh
-# it works! wow (change compliers if it doesnae work)
 ``` 
 
 
