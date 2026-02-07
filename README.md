@@ -24,7 +24,7 @@ note: i do not use the name build.sh since build is already a directory and i li
 
 ## requirements (arch linux):
 ```
-sudo pacman -S clang gcc make base-devel qemu-full gdb dd nasm 
+sudo pacman -S clang gcc make base-devel qemu-full gdb nasm 
 ``` 
 ## reccomended for development:
 ```
