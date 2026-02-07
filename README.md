@@ -27,7 +27,13 @@ note: i do not use the name build.sh since build is already a directory and i li
 sudo pacman -S clang gcc make base-devel qemu-full gdb
 ``` 
 
-
+## setup:
+```
+git clone https://codeberg.org/fiausch/Pen1X.git
+cd Pen1X
+./bitch.sh
+# it works! wow (change compliers if it doesnae work)
+``` 
 
 
 Svaki čovjek ima svoj blues
