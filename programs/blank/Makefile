@@ -3,4 +3,5 @@ all:
 	i686-elf-gcc -g -T ./linker.ld -o ./blank.bin -ffreestanding -O0 -nostdlib -fpic -g ./build/blank.o
 
 clean:
-	find ./build -maxdepth 1 -type f -delete
+	rm -rf ./build/blank.o
+	rm -rf ./blank.bin

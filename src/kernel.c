@@ -7,8 +7,11 @@
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "memory/memory.h"
+#include "status.h"
 #include "string/string.h"
 #include "fs/file.h"
+#include "task/task.h"
+#include "task/process.h"
 #include "disk/disk.h"
 #include "fs/pparser.h"
 #include "disk/streamer.h"
@@ -129,7 +132,18 @@ void kernel_main()
     enable_paging();
     
     // Enable the system interrupts
-    enable_interrupts();
+    //enable_interrupts();
+
+    //process laoding
+    struct process* process = 0;
+    int res = process_load("0:/blank.bin", &process);
+    if(res != PEN1X_ALL_OK){
+        panic("failed to load blank.bin");
+    }
+    print("successfully loaded");
+
+    task_run_first_ever_task();
+
     print("PENIX 1.0.0");
    
 }

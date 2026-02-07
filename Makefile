@@ -16,6 +16,9 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	sudo mount -t vfat ./bin/os.bin /mnt/d
 	# Copy a file over
 	sudo cp ./hello.txt /mnt/d
+	# copy binary user program
+	sudo cp ./programs/blank/blank.bin /mnt/d
+	ls /mnt/d
 	sudo umount /mnt/d
 	qemu-system-i386 -hda ./bin/os.bin
 

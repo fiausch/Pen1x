@@ -5,11 +5,13 @@
 #include <stdint.h>
 
 
-struct registers{
+struct registers
+{
     uint32_t edi;
     uint32_t esi;
     uint32_t ebp;
     uint32_t ebx;
+    uint32_t edx;
     uint32_t ecx;
     uint32_t eax;
 
@@ -20,39 +22,41 @@ struct registers{
     uint32_t ss;
 };
 
-struct process;
 
-struct task{
+struct process;
+struct task
+{
     /**
-     * the page directory of the task
-     * 
+     * The page directory of the task
      */
     struct paging_4gb_chunk* page_directory;
-    
-    //registers of the task when the task is not running
+
+    // The registers of the task when the task is not running
     struct registers registers;
 
-    //the process of the task
+    // The process of the task
     struct process* process;
 
-    //the next task in the linked list
+    // The next task in the linked list
     struct task* next;
 
-    //Previous task in the linked list
+    // Previous task in the linked list
     struct task* prev;
-
-
 };
+
 struct task* task_new(struct process* process);
 struct task* task_current();
 struct task* task_get_next();
+int task_free(struct task* task);
+
+int task_switch(struct task* task);
+int task_page();
 
 void task_run_first_ever_task();
-int task_free(struct task* task);
-int task_switch(struct task* task);
+
 void task_return(struct registers* regs);
 void restore_general_purpose_registers(struct registers* regs);
 void user_registers();
-int task_page();
+
 
 #endif

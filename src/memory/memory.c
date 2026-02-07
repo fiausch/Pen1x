@@ -21,7 +21,6 @@ int memcmp(void* s1, void* s2, int count)
             return c1[-1] < c2[-1] ? -1 : 1;
         }
     }
-
     return 0;
 }
 
