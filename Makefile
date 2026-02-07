@@ -1,11 +1,12 @@
 FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o  ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/task/task.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/task/tss.asm.o  ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o  ./build/task/process.o ./build/task/task.asm.o
 INCLUDES = -I./include
 FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
-FLAGS-CLANG = -g  -target i686 -ffreestanding -O0 -Wall
+FLAGS-CLANG = -g  -target i686 -O0 -nostdlib -ffreestanding  -Wall 
 CC-GCC = i686-elf-gcc $(FLAGS-GCC)
 CC-CLANG = clang $(FLAGS-CLANG)
-CC = $(CC-GCC)
-LINKER = i686-elf-ld
+CC = $(CC-CLANG) 
+LINKER = ld.lld
+ 
 
 all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	rm -rf ./bin/os.bin
@@ -96,8 +97,10 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 ./build/task/process.o: ./src/task/process.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/task/process.c -o ./build/task/process.o
 
+./build/keyboard/keyboard.o: ./src/keyboard/keyboard.c
+	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/keyboard/keyboard.c -o ./build/keyboard/keyboard.o
 
-mkdir:
+mkdir: user_programs_mkdir
 	mkdir -p ./bin
 	mkdir -p ./build
 	mkdir -p ./build/disk
@@ -111,12 +114,17 @@ mkdir:
 	mkdir -p ./build/memory/paging
 	mkdir -p ./build/string
 	mkdir -p ./build/task
+	mkdir -p ./programs/
+	mkdir -p ./programs/blank
 
 user_programs:
 	cd ./programs/blank && $(MAKE) all
 
 user_programs_clean:
 	cd ./programs/blank && $(MAKE) clean
+
+user_programs_mkdir:
+	cd ./programs/blank && $(MAKE) mkdir
 
 clean: user_programs_clean
 	find ./bin/ -maxdepth 1 -type f -delete
