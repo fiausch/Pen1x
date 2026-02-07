@@ -28,7 +28,7 @@ sudo pacman -S clang gcc make base-devel qemu-full gdb nasm
 ``` 
 ## reccomended for development:
 ```
-sudo pacman -S ndisasm bless
+yay -S ndisasm bless
 ```
 
 ## setup:
