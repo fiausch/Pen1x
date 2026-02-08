@@ -1,6 +1,7 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 #include "config.h"
+#include "keyboard/keyboard.h"
 #include "task/task.h"
 #include <stdint.h>
 
@@ -24,8 +25,15 @@ struct process{
 
     //sizeof the data pointed to by "ptr"
     uint32_t size;
+
+    struct keyboard_buffer{
+        char buffer[PEN1X_KEYBOARD_BUFFER_SIZE];
+        int head;
+        int tail;
+    }keyboard;
 };
 
 int process_load_for_slot(const char* filename, struct process** process, int process_slot);
 int process_load(const char* filename, struct process** process);
+struct process* process_current();
 #endif

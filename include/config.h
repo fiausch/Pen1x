@@ -38,4 +38,9 @@
 
 //kernel commands
 #define PEN1X_MAX_ISR80H_COMMANDS 1024
+
+
+//keyboard
+
+#define PEN1X_KEYBOARD_BUFFER_SIZE 1024
 #endif

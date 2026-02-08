@@ -5,6 +5,7 @@
 #include "gdt/gdt.h"
 #include "idt/idt.h"
 #include "isr80h/isr80h.h"
+#include "keyboard/keyboard.h"
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "memory/memory.h"
@@ -140,11 +141,11 @@ void kernel_main()
 
     //register kernel commands
     isr80h_register_commands();
-    
-    // Enable the system interrupts
-    //enable_interrupts();
 
-     struct process* process = 0;
+
+    keyboard_init();
+
+    struct process* process = 0;
     int res = process_load("0:/blank.bin", &process);
     if(res != PEN1X_ALL_OK){
         panic("failed to load blank.bin");
@@ -152,7 +153,7 @@ void kernel_main()
     print("successfully loaded");
 
     task_run_first_ever_task();
-   
+
 }
 /*
 FUNCIOTNALITY:
