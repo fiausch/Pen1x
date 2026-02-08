@@ -9,6 +9,7 @@
 #include "fs/file.h"
 #include <stdint.h>
 #include "string/string.h"
+#include "task/task.h"
 
 struct process* current_process = 0;
 
@@ -88,6 +89,12 @@ int process_map_memory(struct process* process)
 {
     int res = 0;
     res = process_map_binary(process);
+    if(res < 0){
+        goto out;
+    }
+
+    paging_map_to(process->task->page_directory, (void*)PEN1X_PROGRAM_VIRTUAL_STACK_ADDRESS_END, process->stack, paging_align_address(process->stack + PEN1X_USER_PROGRAM_STACK_SIZE),PAGING_IS_PRESENT | PAGING_IS_WRITEABLE | PAGING_ACCESS_FROM_ALL);
+out:
     return res;
 }
 
