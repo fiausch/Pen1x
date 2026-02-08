@@ -74,13 +74,19 @@ void print(const char* str)
     }
 }
 
-
 static struct paging_4gb_chunk* kernel_chunk = 0;
 
 void panic(const char* msg){
     print(msg);
     while(1);
 }
+
+void kernel_page(){
+    kernel_registers();
+    paging_switch(kernel_chunk);
+}
+
+
 struct tss tss;
 struct gdt gdt_real[PEN1X_TOTAL_GDT_SEGMENTS];
 struct gdt_structured gdt_structured[ ] = {

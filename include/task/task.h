@@ -1,6 +1,7 @@
 #ifndef TASK_H
 #define TASK_H
 #include "config.h"
+#include "idt/idt.h"
 #include "memory/paging/paging.h"
 #include <stdint.h>
 
@@ -58,5 +59,6 @@ void task_return(struct registers* regs);
 void restore_general_purpose_registers(struct registers* regs);
 void user_registers();
 
+void task_current_save_state(struct interrupt_frame *frame);
 
 #endif
