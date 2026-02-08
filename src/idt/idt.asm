@@ -60,7 +60,7 @@ isr80h_wrapper:
 
     ; eax holds our command - lets push it to the stack for isr80h_handler
     push eax
-    call isr80_handler
+    call isr80h_handler
     mov dword[tmp_res], eax
     add esp, 8
     

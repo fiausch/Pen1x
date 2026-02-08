@@ -3,6 +3,11 @@
 
 #include <stdint.h>
 
+struct interrupt_frame;
+
+typedef void*(*ISR80H_COMMAND)(struct interrupt_frame* frame);
+
+
 struct interrupt_frame{
     uint32_t edi;
     uint32_t esi;
