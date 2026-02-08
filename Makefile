@@ -1,4 +1,4 @@
-FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o  ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/task/task.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/task/tss.asm.o  ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o  ./build/task/process.o ./build/task/task.asm.o ./build/isr80h/isr80h.o ./build/isr80h/misc.o
+FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o  ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/task/task.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/task/tss.asm.o  ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o  ./build/task/process.o ./build/task/task.asm.o ./build/isr80h/isr80h.o ./build/isr80h/misc.o ./build/isr80h/io.o
 INCLUDES = -I./include
 FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 FLAGS-CLANG = -g  -target i686 -O0 -nostdlib -ffreestanding  -Wall 
@@ -23,7 +23,7 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	sudo cp ./programs/blank/blank.bin /mnt/d
 	ls /mnt/d
 	sudo umount /mnt/d
-	qemu-system-i386 -hda ./bin/os.bin
+	qemu-system-i386 -hda ./bin/os.bin -no-reboot
 
 ./bin/kernel.bin: $(FILES)
 	$(LINKER) -g -relocatable $(FILES) -o ./build/kernelfull.o
@@ -104,6 +104,10 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 
 ./build/isr80h/misc.o: ./src/isr80h/misc.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/isr80h/misc.c -o ./build/isr80h/misc.o
+
+./build/isr80h/io.o: ./src/isr80h/io.c
+	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/isr80h/io.c -o ./build/isr80h/io.o
+
 
 mkdir: user_programs_mkdir
 	mkdir -p ./bin

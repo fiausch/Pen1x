@@ -152,8 +152,6 @@ void kernel_main()
     print("successfully loaded");
 
     task_run_first_ever_task();
-
-    print("PENIX 1.0.0");
    
 }
 /*
