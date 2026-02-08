@@ -144,6 +144,15 @@ void kernel_main()
     // Enable the system interrupts
     //enable_interrupts();
 
+     struct process* process = 0;
+    int res = process_load("0:/blank.bin", &process);
+    if(res != PEN1X_ALL_OK){
+        panic("failed to load blank.bin");
+    }
+    print("successfully loaded");
+
+    task_run_first_ever_task();
+
     print("PENIX 1.0.0");
    
 }
