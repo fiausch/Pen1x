@@ -1,12 +1,13 @@
 #include "keyboard/keyboard.h"
 #include "status.h"
 #include "task/process.h"
+#include "keyboard/classic.h"
 #include "task/task.h"
 static struct keyboard* keyboard_list_head = 0;
 static struct keyboard* keyboard_list_last = 0;
 
 void keyboard_init(){
-
+    keyboard_insert(classic_init());
 
 }
 

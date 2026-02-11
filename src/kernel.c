@@ -88,6 +88,23 @@ void kernel_page(){
     paging_switch(kernel_chunk);
 }
 
+void meow(){
+    char* buf[9];
+    buf[0] = "i";
+    buf[1] = "m";
+    buf[2] = "a";
+    buf[3] = "g";
+    buf[4] = "e";
+    buf[5] = ".";
+    buf[6] = "p";
+    buf[7] = "n";
+    buf[8] = "g";
+    const char* tmp = buf; 
+    if(fopen(tmp,"r")){
+        panic("ERROR");
+    }
+    print("success");
+}
 
 struct tss tss;
 struct gdt gdt_real[PEN1X_TOTAL_GDT_SEGMENTS];
@@ -103,6 +120,8 @@ struct gdt_structured gdt_structured[ ] = {
 };
 void kernel_main()
 {
+    meow();
+    
     terminal_initialize();
 
     memset(gdt_real, 0x00, sizeof(gdt_real));
@@ -144,6 +163,8 @@ void kernel_main()
 
 
     keyboard_init();
+
+
 
     struct process* process = 0;
     int res = process_load("0:/blank.bin", &process);
