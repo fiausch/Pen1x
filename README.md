@@ -15,7 +15,8 @@ make mkdir: creates the build folders (and the folders where the final bianry is
 
 
 
-
+    nino lenuh od lenuha
+    NIC ne dela
 
 
 ./bitch.sh: compiles the bootloader and kernel and needed object/binary files
