@@ -1,24 +1,23 @@
 #include "kernel.h"
 #include <stddef.h>
 #include <stdint.h>
-#include "config.h"
-#include "gdt/gdt.h"
 #include "idt/idt.h"
-#include "isr80h/isr80h.h"
-#include "keyboard/keyboard.h"
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "memory/memory.h"
-#include "status.h"
+#include "keyboard/keyboard.h"
 #include "string/string.h"
-#include "fs/file.h"
+#include "isr80h/isr80h.h"
 #include "task/task.h"
 #include "task/process.h"
+#include "fs/file.h"
 #include "disk/disk.h"
 #include "fs/pparser.h"
 #include "disk/streamer.h"
-#include "gdt/gdt.h"
 #include "task/tss.h"
+#include "gdt/gdt.h"
+#include "config.h"
+#include "status.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -76,60 +75,41 @@ void print(const char* str)
     }
 }
 
+
 static struct paging_4gb_chunk* kernel_chunk = 0;
 
-void panic(const char* msg){
+void panic(const char* msg)
+{
     print(msg);
-    while(1);
+    while(1) {}
 }
 
-void kernel_page(){
+void kernel_page()
+{
     kernel_registers();
     paging_switch(kernel_chunk);
 }
 
-void meow(){
-    char* buf[9];
-    buf[0] = "i";
-    buf[1] = "m";
-    buf[2] = "a";
-    buf[3] = "g";
-    buf[4] = "e";
-    buf[5] = ".";
-    buf[6] = "p";
-    buf[7] = "n";
-    buf[8] = "g";
-    const char* tmp = buf; 
-    if(fopen(tmp,"r")){
-        panic("ERROR");
-    }
-    print("success");
-}
-
 struct tss tss;
 struct gdt gdt_real[PEN1X_TOTAL_GDT_SEGMENTS];
-struct gdt_structured gdt_structured[ ] = {
-    {.base = 0x00, .limit = 0x00, .type = 0x00},                //NULL Segment
-    {.base = 0x00, .limit = 0xFFFFFFFF, .type = 0x9A},          //Kernel code segment
-    {.base = 0x00, .limit = 0xFFFFFFFF, . type = 0x92},         //Kernel data segment
-    {.base = 0x00, .limit = 0xFFFFFFFF, .type = 0xF8},          //User code segment 
-    {.base = 0x00, .limit = 0xFFFFFFFF, .type = 0xF2},          //User data segment
+struct gdt_structured gdt_structured[PEN1X_TOTAL_GDT_SEGMENTS] = {
+    {.base = 0x00, .limit = 0x00, .type = 0x00},                // NULL Segment
+    {.base = 0x00, .limit = 0xffffffff, .type = 0x9a},           // Kernel code segment
+    {.base = 0x00, .limit = 0xffffffff, .type = 0x92},            // Kernel data segment
+    {.base = 0x00, .limit = 0xffffffff, .type = 0xf8},              // User code segment
+    {.base = 0x00, .limit = 0xffffffff, .type = 0xf2},             // User data segment
     {.base = (uint32_t)&tss, .limit=sizeof(tss), .type = 0xE9}      // TSS Segment
-//gotta add user segment but whatever
-
 };
+
 void kernel_main()
 {
-    meow();
-    
     terminal_initialize();
-
     memset(gdt_real, 0x00, sizeof(gdt_real));
-    
     gdt_structured_to_gdt(gdt_real, gdt_structured, PEN1X_TOTAL_GDT_SEGMENTS);
-    
-    //load the GDT
+
+    // Load the gdt
     gdt_load(gdt_real, sizeof(gdt_real));
+
     // Initialize the heap
     kheap_init();
 
@@ -141,13 +121,14 @@ void kernel_main()
 
     // Initialize the interrupt descriptor table
     idt_init();
-    // Setup TSS
+
+    // Setup the TSS
     memset(&tss, 0x00, sizeof(tss));
     tss.esp0 = 0x600000;
     tss.ss0 = KERNEL_DATA_SELECTOR;
 
-    //Load TSS
-    tss_load(0x28); //0x28 is the offset
+    // Load the TSS
+    tss_load(0x28);
 
     // Setup paging
     kernel_chunk = paging_new_4gb(PAGING_IS_WRITEABLE | PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL);
@@ -158,24 +139,25 @@ void kernel_main()
     // Enable paging
     enable_paging();
 
-    //register kernel commands
+    // Register the kernel commands
     isr80h_register_commands();
 
-
+    // Initialize all the system keyboards
     keyboard_init();
-
-
-
+        
     struct process* process = 0;
     int res = process_load_switch("0:/blank.bin", &process);
-    if(res != PEN1X_ALL_OK){
-        panic("failed to load blank.bin");
+    if (res != PEN1X_ALL_OK)
+    {
+        panic("Failed to load blank.bin\n");
     }
-    print("successfully loaded");
+
 
     task_run_first_ever_task();
 
+    while(1) {}
 }
+
 /*
 FUNCIOTNALITY:
 
