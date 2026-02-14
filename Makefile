@@ -135,6 +135,7 @@ mkdir: user_programs_mkdir
 	mkdir -p ./build/keyboard
 	mkdir -p ./programs/
 	mkdir -p ./programs/blank
+	mkdir -p ./programs/blank/build
 
 user_programs:
 	cd ./programs/blank && $(MAKE) all
