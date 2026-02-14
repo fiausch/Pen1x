@@ -2,6 +2,7 @@
 #include "memory/heap/kheap.h"
 #include "status.h"
 #include <stdint.h>
+#include "loader/formats/elfloader.h"
 
 void paging_load_directory(uint32_t *directory);
 
@@ -24,6 +25,13 @@ struct paging_4gb_chunk *paging_new_4gb(uint8_t flags)
     struct paging_4gb_chunk *chunk_4gb = kzalloc(sizeof(struct paging_4gb_chunk));
     chunk_4gb->directory_entry = directory;
     return chunk_4gb;
+}
+
+void* paging_align_to_lower_page(void* addr)
+{
+    uint32_t _addr = (uint32_t) addr;
+    _addr -= (_addr % PAGING_PAGE_SIZE);
+    return (void*) _addr;
 }
 
 void paging_switch(struct paging_4gb_chunk *directory)

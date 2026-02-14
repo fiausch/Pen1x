@@ -10,7 +10,7 @@
 #include "config.h"
 
 
-const char* elf_signature[] = {0x7f, 'E', 'L', 'F'};
+const char elf_signature[] = {0x7f, 'E', 'L', 'F'};
 
 static bool elf_valid_signature(void* buffer)
 {
@@ -100,7 +100,7 @@ void* elf_phys_end(struct elf_file* file)
 
 int elf_validate_loaded(struct elf_header* header)
 {
-    return (elf_valid_signature(header) && elf_valid_class(header) && elf_valid_encoding(header) && elf_has_program_header(header)) ? PEN1X_ALL_OK : -EINVARG;
+    return (elf_valid_signature(header) && elf_valid_class(header) && elf_valid_encoding(header) && elf_has_program_header(header)) ? PEN1X_ALL_OK : -EINFORMAT;
 }
 
 int elf_process_phdr_pt_load(struct elf_file* elf_file, struct elf32_phdr* phdr)
