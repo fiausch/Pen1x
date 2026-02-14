@@ -8,8 +8,9 @@ LINKER-GCC = i686-elf-ld
 LINKER= $(LINKER-CLANG)
 CC = $(CC-CLANG) 
 
-FILES=./build/start.o ./build/pen1x.o
-INCLUDES=
+FILES=./build/start.o ./build/pen1x.o ./build/stdlib.o
+INCLUDES=-I./src
+FLAGS= -g
 
 all: ${FILES}
 	${LINKER} -m elf_i386 -relocatable ${FILES} -o ./stdlib.elf
@@ -20,6 +21,8 @@ all: ${FILES}
 ./build/pen1x.o: ./src/pen1x.asm
 	nasm -f elf ./src/pen1x.asm -o ./build/pen1x.o
 
+./build/stdlib.o: ./src/stdlib.c
+	${CC} ${INCLUDES} $(FLAGS) -std=gnu99 -c ./src/stdlib.c -o ./build/stdlib.o
 
 clean:
 	rm -rf ${FILES}
