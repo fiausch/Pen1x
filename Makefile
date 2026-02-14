@@ -20,7 +20,7 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	# Copy a file over
 	sudo cp ./hello.txt /mnt/d
 	# copy binary user program
-	sudo cp ./programs/blank/blank.elf /mnt/d
+	sudo cp ./programs/blank/build/blank.elf /mnt/d
 	#copy coconut
 	sudo cp ./image.png /mnt/d
 	ls /mnt/d
@@ -122,7 +122,7 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 ./build/loader/formats/elfloader.o: ./src/loader/formats/elfloader.c
 	$(CC) $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/loader/formats/elfloader.c -o ./build/loader/formats/elfloader.o
 
-mkdir: user_programs_mkdir
+mkdir: 
 	mkdir -p ./bin
 	mkdir -p ./build
 	mkdir -p ./build/disk
@@ -142,9 +142,11 @@ mkdir: user_programs_mkdir
 	mkdir -p ./programs/
 	mkdir -p ./programs/blank
 	mkdir -p ./programs/blank/build
-	
+	mkdir -p ./programs/stdlib/build
+
 
 user_programs:
+	cd ./programs/stdlib && $(MAKE) all
 	cd ./programs/blank && $(MAKE) all
 
 user_programs_clean:
