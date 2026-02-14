@@ -23,9 +23,9 @@ make mkdir: creates the build folders (and the folders where the final bianry is
 note: i do not use the name build.sh since build is already a directory and i like the speed bitch enables
 
 
-## requirements (arch linux):
+## requirements (arch linux idk should be similar on other distros):
 ```
-sudo pacman -S clang gcc make base-devel qemu-full gdb nasm 
+sudo pacman -S clang gcc make base-devel qemu-full gdb nasm pax-utils
 ``` 
 ## reccomended for development:
 ```
