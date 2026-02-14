@@ -49,3 +49,14 @@ pen1x_free:
     add esp, 4
     pop ebp
     ret
+
+    ; void pen1x_process_load_start(const char* filename)
+pen1x_process_load_start:
+    push ebp
+    mov ebp, esp
+    mov eax, 6 ; Command 6 process load start ( stars a process )
+    push dword[ebp+8] ; Variable "filename"
+    int 0x80
+    add esp, 4
+    pop ebp
+    ret
