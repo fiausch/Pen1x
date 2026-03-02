@@ -3,9 +3,11 @@
 section .asm
 
 global print:function
-global getkey:function
-global pen1x_malloc:function
-global pen1x_free:function
+global peachos_getkey:function
+global peachos_malloc:function
+global peachos_free:function
+global peachos_putchar:function
+global peachos_process_load_start:function
 
 ; void print(const char* filename)
 print:
@@ -18,8 +20,8 @@ print:
     pop ebp
     ret
 
-; int getkey()
-getkey:
+; int peachos_getkey()
+peachos_getkey:
     push ebp
     mov ebp, esp
     mov eax, 2 ; Command getkey
@@ -27,9 +29,19 @@ getkey:
     pop ebp
     ret
 
+; void peachos_putchar(char c)
+peachos_putchar:
+    push ebp
+    mov ebp, esp
+    mov eax, 3 ; Command putchar
+    push dword [ebp+8] ; Variable "c"
+    int 0x80
+    add esp, 4
+    pop ebp
+    ret
 
-; void* pen1x_malloc(size_t size)
-pen1x_malloc:
+; void* peachos_malloc(size_t size)
+peachos_malloc:
     push ebp
     mov ebp, esp
     mov eax, 4 ; Command malloc (Allocates memory for the process)
@@ -39,8 +51,8 @@ pen1x_malloc:
     pop ebp
     ret
 
-; void pen1x_free(void* ptr)
-pen1x_free:
+; void peachos_free(void* ptr)
+peachos_free:
     push ebp
     mov ebp, esp
     mov eax, 5 ; Command 5 free (Frees the allocated memory for this process)
@@ -50,8 +62,8 @@ pen1x_free:
     pop ebp
     ret
 
-    ; void pen1x_process_load_start(const char* filename)
-pen1x_process_load_start:
+; void peachos_process_load_start(const char* filename)
+peachos_process_load_start:
     push ebp
     mov ebp, esp
     mov eax, 6 ; Command 6 process load start ( stars a process )

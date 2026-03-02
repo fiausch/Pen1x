@@ -1,4 +1,4 @@
-FILES =  ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o  ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/task/task.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o ./build/task/tss.asm.o  ./build/disk/disk.o ./build/fs/pparser.o ./build/string/string.o ./build/disk/streamer.o ./build/fs/file.o  ./build/fs/fat/fat16.o  ./build/gdt/gdt.asm.o ./build/gdt/gdt.o  ./build/task/process.o ./build/task/task.asm.o ./build/isr80h/isr80h.o ./build/isr80h/misc.o ./build/isr80h/io.o ./build/keyboard/keyboard.o ./build/keyboard/classic.o ./build/loader/formats/elf.o ./build/loader/formats/elfloader.o ./build/isr80h/heap.o ./build/isr80h/process.o
+FILES = ./build/kernel.asm.o ./build/kernel.o ./build/loader/formats/elf.o ./build/loader/formats/elfloader.o  ./build/isr80h/isr80h.o ./build/isr80h/process.o ./build/isr80h/heap.o ./build/keyboard/keyboard.o ./build/keyboard/classic.o ./build/isr80h/io.o ./build/isr80h/misc.o ./build/disk/disk.o ./build/disk/streamer.o ./build/task/process.o ./build/task/task.o ./build/task/task.asm.o ./build/task/tss.asm.o ./build/fs/pparser.o ./build/fs/file.o ./build/fs/fat/fat16.o ./build/string/string.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/gdt/gdt.o ./build/gdt/gdt.asm.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.o ./build/memory/paging/paging.asm.o
 INCLUDES = -I./include
 FLAGS-GCC = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -finline-functions -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc
 FLAGS-CLANG = -g  -target i686 -O0 -nostdlib -ffreestanding  -Wall 
@@ -20,7 +20,7 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	# Copy a file over
 	sudo cp ./hello.txt /mnt/d
 	# copy binary user program
-	sudo cp ./programs/blank/build/blank.elf /mnt/d
+	sudo cp ./programs/blank/blank.elf /mnt/d
 	#copy coconut
 	sudo cp ./image.png /mnt/d
 	ls /mnt/d
@@ -154,9 +154,12 @@ mkdir:
 user_programs:
 	cd ./programs/stdlib && $(MAKE) all
 	cd ./programs/blank && $(MAKE) all
+	cd ./programs/shell && $(MAKE) all
 
 user_programs_clean:
+	cd ./programs/stdlib && $(MAKE) clean
 	cd ./programs/blank && $(MAKE) clean
+	cd ./programs/shell && $(MAKE) clean
 
 user_programs_mkdir:
 	cd ./programs/blank && $(MAKE) mkdir
