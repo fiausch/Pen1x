@@ -13,7 +13,7 @@
 // The current process that is running
 struct process* current_process = 0;
 
-static struct process* processes[PEACHOS_MAX_PROCESSES] = {};
+static struct process* processes[PEN1X_MAX_PROCESSES] = {};
 
 static void process_init(struct process* process)
 {
@@ -27,7 +27,7 @@ struct process* process_current()
 
 struct process* process_get(int process_id)
 {
-    if (process_id < 0 || process_id >= PEACHOS_MAX_PROCESSES)
+    if (process_id < 0 || process_id >= PEN1X_MAX_PROCESSES)
     {
         return NULL;
     }
@@ -44,7 +44,7 @@ int process_switch(struct process* process)
 static int process_find_free_allocation_index(struct process* process)
 {
     int res = -ENOMEM;
-    for (int i = 0; i < PEACHOS_MAX_PROGRAM_ALLOCATIONS; i++)
+    for (int i = 0; i < PEN1X_MAX_PROGRAM_ALLOCATIONS; i++)
     {
         if (process->allocations[i] == 0)
         {
@@ -76,7 +76,7 @@ void* process_malloc(struct process* process, size_t size)
 
 static bool process_is_process_pointer(struct process* process, void* ptr)
 {
-    for (int i = 0; i < PEACHOS_MAX_PROGRAM_ALLOCATIONS; i++)
+    for (int i = 0; i < PEN1X_MAX_PROGRAM_ALLOCATIONS; i++)
     {
         if (process->allocations[i] == ptr)
             return true;
@@ -87,7 +87,7 @@ static bool process_is_process_pointer(struct process* process, void* ptr)
 
 static void process_allocation_unjoin(struct process* process, void* ptr)
 {
-    for (int i = 0; i < PEACHOS_MAX_PROGRAM_ALLOCATIONS; i++)
+    for (int i = 0; i < PEN1X_MAX_PROGRAM_ALLOCATIONS; i++)
     {
         if (process->allocations[i] == ptr)
         {
@@ -123,7 +123,7 @@ static int process_load_binary(const char* filename, struct process* process)
 
     struct file_stat stat;
     res = fstat(fd, &stat);
-    if (res != PEACHOS_ALL_OK)
+    if (res != PEN1X_ALL_OK)
     {
         goto out;
     }
@@ -180,7 +180,7 @@ static int process_load_data(const char* filename, struct process* process)
 int process_map_binary(struct process* process)
 {
     int res = 0;
-    paging_map_to(process->task->page_directory, (void*) PEACHOS_PROGRAM_VIRTUAL_ADDRESS, process->ptr, paging_align_address(process->ptr + process->size), PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL | PAGING_IS_WRITEABLE);
+    paging_map_to(process->task->page_directory, (void*) PEN1X_PROGRAM_VIRTUAL_ADDRESS, process->ptr, paging_align_address(process->ptr + process->size), PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL | PAGING_IS_WRITEABLE);
     return res;
 }
 
@@ -232,14 +232,14 @@ int process_map_memory(struct process* process)
     }
 
     // Finally map the stack
-    paging_map_to(process->task->page_directory, (void*)PEACHOS_PROGRAM_VIRTUAL_STACK_ADDRESS_END, process->stack, paging_align_address(process->stack+PEACHOS_USER_PROGRAM_STACK_SIZE), PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL | PAGING_IS_WRITEABLE);
+    paging_map_to(process->task->page_directory, (void*)PEN1X_PROGRAM_VIRTUAL_STACK_ADDRESS_END, process->stack, paging_align_address(process->stack+PEN1X_USER_PROGRAM_STACK_SIZE), PAGING_IS_PRESENT | PAGING_ACCESS_FROM_ALL | PAGING_IS_WRITEABLE);
 out:
     return res;
 }
 
 int process_get_free_slot()
 {
-    for (int i = 0; i < PEACHOS_MAX_PROCESSES; i++)
+    for (int i = 0; i < PEN1X_MAX_PROCESSES; i++)
     {
         if (processes[i] == 0)
             return i;
@@ -301,7 +301,7 @@ int process_load_for_slot(const char* filename, struct process** process, int pr
         goto out;
     }
 
-    program_stack_ptr = kzalloc(PEACHOS_USER_PROGRAM_STACK_SIZE);
+    program_stack_ptr = kzalloc(PEN1X_USER_PROGRAM_STACK_SIZE);
     if (!program_stack_ptr)
     {
         res = -ENOMEM;

@@ -7,13 +7,13 @@
 #include "fat/fat16.h"
 #include "status.h"
 #include "kernel.h"
-struct filesystem* filesystems[PEACHOS_MAX_FILESYSTEMS];
-struct file_descriptor* file_descriptors[PEACHOS_MAX_FILE_DESCRIPTORS];
+struct filesystem* filesystems[PEN1X_MAX_FILESYSTEMS];
+struct file_descriptor* file_descriptors[PEN1X_MAX_FILE_DESCRIPTORS];
 
 static struct filesystem** fs_get_free_filesystem()
 {
     int i = 0;
-    for (i = 0; i < PEACHOS_MAX_FILESYSTEMS; i++)
+    for (i = 0; i < PEN1X_MAX_FILESYSTEMS; i++)
     {
         if (filesystems[i] == 0)
         {
@@ -63,7 +63,7 @@ static void file_free_descriptor(struct file_descriptor* desc)
 static int file_new_descriptor(struct file_descriptor** desc_out)
 {
     int res = -ENOMEM;
-    for (int i = 0; i < PEACHOS_MAX_FILE_DESCRIPTORS; i++)
+    for (int i = 0; i < PEN1X_MAX_FILE_DESCRIPTORS; i++)
     {
         if (file_descriptors[i] == 0)
         {
@@ -82,7 +82,7 @@ static int file_new_descriptor(struct file_descriptor** desc_out)
 
 static struct file_descriptor* file_get_descriptor(int fd)
 {
-    if (fd <= 0 || fd >= PEACHOS_MAX_FILE_DESCRIPTORS)
+    if (fd <= 0 || fd >= PEN1X_MAX_FILE_DESCRIPTORS)
     {
         return 0;
     }
@@ -95,7 +95,7 @@ static struct file_descriptor* file_get_descriptor(int fd)
 struct filesystem* fs_resolve(struct disk* disk)
 {
     struct filesystem* fs = 0;
-    for (int i = 0; i < PEACHOS_MAX_FILESYSTEMS; i++)
+    for (int i = 0; i < PEN1X_MAX_FILESYSTEMS; i++)
     {
         if (filesystems[i] != 0 && filesystems[i]->resolve(disk) == 0)
         {
@@ -215,7 +215,7 @@ int fclose(int fd)
     }
 
     res = desc->filesystem->close(desc->private);
-    if (res == PEACHOS_ALL_OK)
+    if (res == PEN1X_ALL_OK)
     {
         file_free_descriptor(desc);
     }

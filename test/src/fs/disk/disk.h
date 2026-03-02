@@ -3,15 +3,15 @@
 
 #include "fs/file.h"
 
-typedef unsigned int PEACHOS_DISK_TYPE;
+typedef unsigned int PEN1X_DISK_TYPE;
 
 
 // Represents a real physical hard disk
-#define PEACHOS_DISK_TYPE_REAL 0
+#define PEN1X_DISK_TYPE_REAL 0
 
 struct disk
 {
-    PEACHOS_DISK_TYPE type;
+    PEN1X_DISK_TYPE type;
     int sector_size;
 
     // The id of the disk

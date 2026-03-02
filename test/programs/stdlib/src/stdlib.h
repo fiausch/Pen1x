@@ -1,5 +1,5 @@
-#ifndef PEACHOS_STDLIB_H
-#define PEACHOS_STDLIB_H
+#ifndef PEN1X_STDLIB_H
+#define PEN1X_STDLIB_H
 #include <stddef.h>
 
 void* malloc(size_t size);

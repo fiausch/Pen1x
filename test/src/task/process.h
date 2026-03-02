@@ -15,13 +15,13 @@ struct process
     // The process id
     uint16_t id;
 
-    char filename[PEACHOS_MAX_PATH];
+    char filename[PEN1X_MAX_PATH];
 
     // The main process task
     struct task* task;
 
     // The memory (malloc) allocations of the process
-    void* allocations[PEACHOS_MAX_PROGRAM_ALLOCATIONS];
+    void* allocations[PEN1X_MAX_PROGRAM_ALLOCATIONS];
 
     PROCESS_FILETYPE filetype;
 
@@ -41,7 +41,7 @@ struct process
 
     struct keyboard_buffer
     {
-        char buffer[PEACHOS_KEYBOARD_BUFFER_SIZE];
+        char buffer[PEN1X_KEYBOARD_BUFFER_SIZE];
         int tail;
         int head;
     } keyboard;

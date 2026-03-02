@@ -9,7 +9,7 @@
 
 struct elf_file
 {
-    char filename[PEACHOS_MAX_PATH];
+    char filename[PEN1X_MAX_PATH];
 
     int in_memory_size;
 

@@ -1,5 +1,5 @@
-#ifndef PEACHOS_STRING_H
-#define PEACHOS_STRING_H
+#ifndef PEN1X_STRING_H
+#define PEN1X_STRING_H
 
 #include <stdbool.h>
 
