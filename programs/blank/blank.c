@@ -1,5 +1,5 @@
-#include "peachos.h"
-#include "stdlib.h"
+#include "../stdlib/src/stdlib.h"
+#include "../stdlib/src/pen1x.h"
 #include "stdio.h"
 #include "string.h"
 int main(int argc, char** argv)

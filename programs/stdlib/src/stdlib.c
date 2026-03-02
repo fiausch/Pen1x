@@ -1,5 +1,5 @@
 #include "stdlib.h"
-#include "peachos.h"
+#include "pen1x.h"
 
 char* itoa(int i)
 {
@@ -30,10 +30,10 @@ char* itoa(int i)
 
 void* malloc(size_t size)
 {
-    return peachos_malloc(size);
+    return pen1x_malloc(size);
 }
 
 void free(void* ptr)
 {
-    peachos_free(ptr);
+    pen1x_free(ptr);
 }

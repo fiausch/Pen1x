@@ -1,5 +1,5 @@
-#ifndef PEACHOS_MEMORY_H
-#define PEACHOS_MEMORY_H
+#ifndef PEN1X_MEMORY_H
+#define PEN1X_MEMORY_H
 
 #include <stddef.h>
 void* memset(void* ptr, int c, size_t size);

@@ -1,10 +1,10 @@
 #include "stdio.h"
-#include "peachos.h"
+#include "pen1x.h"
 #include "stdlib.h"
 #include <stdarg.h>
 int putchar(int c)
 {
-    peachos_putchar((char)c);
+    pen1x_putchar((char)c);
     return 0;
 }
 
