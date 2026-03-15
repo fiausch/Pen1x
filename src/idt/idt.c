@@ -2,9 +2,9 @@
 #include "config.h"
 #include "kernel.h"
 #include "memory/memory.h"
-#include "status.h"
 #include "task/task.h"
 #include "io/io.h"
+#include "status.h"
 struct idt_desc idt_descriptors[PEN1X_TOTAL_INTERRUPTS];
 struct idtr_desc idtr_descriptor;
 
@@ -26,7 +26,14 @@ void no_interrupt_handler()
 
 void interrupt_handler(int interrupt, struct interrupt_frame* frame)
 {
+    kernel_page();
+    if (interrupt_callbacks[interrupt] != 0)
+    {
+        task_current_save_state(frame);
+        interrupt_callbacks[interrupt](frame);
+    }
 
+    task_page();
     outb(0x20, 0x20);
 }
 
@@ -64,6 +71,17 @@ void idt_init()
     idt_load(&idtr_descriptor);
 }
 
+int idt_register_interrupt_callback(int interrupt, INTERRUPT_CALLBACK_FUNCTION interrupt_callback)
+{
+    if (interrupt < 0 || interrupt >= PEN1X_TOTAL_INTERRUPTS)
+    {
+        return -EINVARG;
+    }
+
+    interrupt_callbacks[interrupt] = interrupt_callback;
+    return 0;
+}
+
 void isr80h_register_command(int command_id, ISR80H_COMMAND command)
 {
     if (command_id < 0 || command_id >= PEN1X_MAX_ISR80H_COMMANDS)
@@ -77,17 +95,6 @@ void isr80h_register_command(int command_id, ISR80H_COMMAND command)
     }
 
     isr80h_commands[command_id] = command;
-}
-
-int idt_register_interrupt_callback(int interrupt, INTERRUPT_CALLBACK_FUNCTION interrupt_callback)
-{
-    if (interrupt < 0 || interrupt >= PEN1X_TOTAL_INTERRUPTS)
-    {
-        return -EINVARG;
-    }
-
-    interrupt_callbacks[interrupt] = interrupt_callback;
-    return 0;
 }
 
 void* isr80h_handle_command(int command, struct interrupt_frame* frame)

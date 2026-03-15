@@ -1,4 +1,4 @@
-#include "gdt/gdt.h"
+#include "gdt.h"
 #include "kernel.h"
 
 void encodeGdtEntry(uint8_t* target, struct gdt_structured source)

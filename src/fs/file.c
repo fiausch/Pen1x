@@ -1,13 +1,12 @@
-#include "fs/file.h"
+#include "file.h"
 #include "config.h"
 #include "memory/memory.h"
 #include "memory/heap/kheap.h"
 #include "string/string.h"
 #include "disk/disk.h"
-#include "fs/fat/fat16.h"
+#include "fat/fat16.h"
 #include "status.h"
 #include "kernel.h"
-#include <stdint.h>
 struct filesystem* filesystems[PEN1X_MAX_FILESYSTEMS];
 struct file_descriptor* file_descriptors[PEN1X_MAX_FILE_DESCRIPTORS];
 
@@ -54,10 +53,13 @@ void fs_init()
     memset(file_descriptors, 0, sizeof(file_descriptors));
     fs_load();
 }
-static void file_free_descriptor(struct file_descriptor* desc){
+
+static void file_free_descriptor(struct file_descriptor* desc)
+{
     file_descriptors[desc->index-1] = 0x00;
     kfree(desc);
 }
+
 static int file_new_descriptor(struct file_descriptor** desc_out)
 {
     int res = -ENOMEM;
@@ -78,7 +80,6 @@ static int file_new_descriptor(struct file_descriptor** desc_out)
     return res;
 }
 
-
 static struct file_descriptor* file_get_descriptor(int fd)
 {
     if (fd <= 0 || fd >= PEN1X_MAX_FILE_DESCRIPTORS)
@@ -89,21 +90,6 @@ static struct file_descriptor* file_get_descriptor(int fd)
     // Descriptors start at 1
     int index = fd - 1;
     return file_descriptors[index];
-}
-
-int fclose(int fd){
-    int res = 0;
-    struct file_descriptor* descriptor = file_get_descriptor(fd);
-    if(!descriptor){
-        res =-EIO;
-        goto out;
-    }
-    res = descriptor->filesystem->close(descriptor->private);
-    if(res == PEN1X_ALL_OK){
-        file_free_descriptor(descriptor);
-    }
-out:
-    return res;
 }
 
 struct filesystem* fs_resolve(struct disk* disk)
@@ -202,24 +188,47 @@ out:
 
     return res;
 }
-int fstat(int fd, struct file_stat* stat){
-    int res= 0;
+
+int fstat(int fd, struct file_stat* stat)
+{
+    int res = 0;
     struct file_descriptor* desc = file_get_descriptor(fd);
-    if(!desc){
+    if (!desc)
+    {
         res = -EIO;
         goto out;
     }
 
     res = desc->filesystem->stat(desc->disk, desc->private, stat);
-
 out:
     return res;
 }
 
-int fseek(int fd, int offset, FILE_SEEK_MODE whence){
+int fclose(int fd)
+{
     int res = 0;
     struct file_descriptor* desc = file_get_descriptor(fd);
-    if(!desc){
+    if (!desc)
+    {
+        res = -EIO;
+        goto out;
+    }
+
+    res = desc->filesystem->close(desc->private);
+    if (res == PEN1X_ALL_OK)
+    {
+        file_free_descriptor(desc);
+    }
+out:
+    return res;
+}
+
+int fseek(int fd, int offset, FILE_SEEK_MODE whence)
+{
+    int res = 0;
+    struct file_descriptor* desc = file_get_descriptor(fd);
+    if (!desc)
+    {
         res = -EIO;
         goto out;
     }
@@ -228,20 +237,23 @@ int fseek(int fd, int offset, FILE_SEEK_MODE whence){
 out:
     return res;
 }
-int fread(void* ptr, uint32_t size, uint32_t nmemb, int fd){
+int fread(void* ptr, uint32_t size, uint32_t nmemb, int fd)
+{
     int res = 0;
-    if(size == 0 || nmemb == 0 || fd < 1){
+    if (size == 0 || nmemb == 0 || fd < 1)
+    {
         res = -EINVARG;
         goto out;
     }
+
     struct file_descriptor* desc = file_get_descriptor(fd);
-    if(!desc){
+    if (!desc)
+    {
         res = -EINVARG;
         goto out;
-    } 
+    }
 
-    res = desc->filesystem->read(desc->disk, desc->private, size, nmemb, (char*)ptr);
-
+    res = desc->filesystem->read(desc->disk, desc->private, size, nmemb, (char*) ptr);
 out:
     return res;
 }

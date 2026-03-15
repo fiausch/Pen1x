@@ -1,15 +1,105 @@
 [
 {
   "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/disk/disk.c.o -c /home/tera/Projects/Pen1X/src/disk/disk.c",
+  "file": "/home/tera/Projects/Pen1X/src/disk/disk.c",
+  "output": "CMakeFiles/main.dir/src/disk/disk.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/disk/streamer.c.o -c /home/tera/Projects/Pen1X/src/disk/streamer.c",
+  "file": "/home/tera/Projects/Pen1X/src/disk/streamer.c",
+  "output": "CMakeFiles/main.dir/src/disk/streamer.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/fs/fat/fat16.c.o -c /home/tera/Projects/Pen1X/src/fs/fat/fat16.c",
+  "file": "/home/tera/Projects/Pen1X/src/fs/fat/fat16.c",
+  "output": "CMakeFiles/main.dir/src/fs/fat/fat16.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/fs/file.c.o -c /home/tera/Projects/Pen1X/src/fs/file.c",
+  "file": "/home/tera/Projects/Pen1X/src/fs/file.c",
+  "output": "CMakeFiles/main.dir/src/fs/file.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/fs/pparser.c.o -c /home/tera/Projects/Pen1X/src/fs/pparser.c",
+  "file": "/home/tera/Projects/Pen1X/src/fs/pparser.c",
+  "output": "CMakeFiles/main.dir/src/fs/pparser.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/gdt/gdt.c.o -c /home/tera/Projects/Pen1X/src/gdt/gdt.c",
+  "file": "/home/tera/Projects/Pen1X/src/gdt/gdt.c",
+  "output": "CMakeFiles/main.dir/src/gdt/gdt.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
   "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/idt/idt.c.o -c /home/tera/Projects/Pen1X/src/idt/idt.c",
   "file": "/home/tera/Projects/Pen1X/src/idt/idt.c",
   "output": "CMakeFiles/main.dir/src/idt/idt.c.o"
 },
 {
   "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/isr80h/heap.c.o -c /home/tera/Projects/Pen1X/src/isr80h/heap.c",
+  "file": "/home/tera/Projects/Pen1X/src/isr80h/heap.c",
+  "output": "CMakeFiles/main.dir/src/isr80h/heap.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/isr80h/io.c.o -c /home/tera/Projects/Pen1X/src/isr80h/io.c",
+  "file": "/home/tera/Projects/Pen1X/src/isr80h/io.c",
+  "output": "CMakeFiles/main.dir/src/isr80h/io.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/isr80h/isr80h.c.o -c /home/tera/Projects/Pen1X/src/isr80h/isr80h.c",
+  "file": "/home/tera/Projects/Pen1X/src/isr80h/isr80h.c",
+  "output": "CMakeFiles/main.dir/src/isr80h/isr80h.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/isr80h/misc.c.o -c /home/tera/Projects/Pen1X/src/isr80h/misc.c",
+  "file": "/home/tera/Projects/Pen1X/src/isr80h/misc.c",
+  "output": "CMakeFiles/main.dir/src/isr80h/misc.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/isr80h/process.c.o -c /home/tera/Projects/Pen1X/src/isr80h/process.c",
+  "file": "/home/tera/Projects/Pen1X/src/isr80h/process.c",
+  "output": "CMakeFiles/main.dir/src/isr80h/process.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
   "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/kernel.c.o -c /home/tera/Projects/Pen1X/src/kernel.c",
   "file": "/home/tera/Projects/Pen1X/src/kernel.c",
   "output": "CMakeFiles/main.dir/src/kernel.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/keyboard/classic.c.o -c /home/tera/Projects/Pen1X/src/keyboard/classic.c",
+  "file": "/home/tera/Projects/Pen1X/src/keyboard/classic.c",
+  "output": "CMakeFiles/main.dir/src/keyboard/classic.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/keyboard/keyboard.c.o -c /home/tera/Projects/Pen1X/src/keyboard/keyboard.c",
+  "file": "/home/tera/Projects/Pen1X/src/keyboard/keyboard.c",
+  "output": "CMakeFiles/main.dir/src/keyboard/keyboard.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/loader/formats/elf.c.o -c /home/tera/Projects/Pen1X/src/loader/formats/elf.c",
+  "file": "/home/tera/Projects/Pen1X/src/loader/formats/elf.c",
+  "output": "CMakeFiles/main.dir/src/loader/formats/elf.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/loader/formats/elfloader.c.o -c /home/tera/Projects/Pen1X/src/loader/formats/elfloader.c",
+  "file": "/home/tera/Projects/Pen1X/src/loader/formats/elfloader.c",
+  "output": "CMakeFiles/main.dir/src/loader/formats/elfloader.c.o"
 },
 {
   "directory": "/home/tera/Projects/Pen1X/build",
@@ -34,5 +124,23 @@
   "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/memory/paging/paging.c.o -c /home/tera/Projects/Pen1X/src/memory/paging/paging.c",
   "file": "/home/tera/Projects/Pen1X/src/memory/paging/paging.c",
   "output": "CMakeFiles/main.dir/src/memory/paging/paging.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/string/string.c.o -c /home/tera/Projects/Pen1X/src/string/string.c",
+  "file": "/home/tera/Projects/Pen1X/src/string/string.c",
+  "output": "CMakeFiles/main.dir/src/string/string.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/task/process.c.o -c /home/tera/Projects/Pen1X/src/task/process.c",
+  "file": "/home/tera/Projects/Pen1X/src/task/process.c",
+  "output": "CMakeFiles/main.dir/src/task/process.c.o"
+},
+{
+  "directory": "/home/tera/Projects/Pen1X/build",
+  "command": "/usr/bin/clang  -I/home/tera/Projects/Pen1X/include  -o CMakeFiles/main.dir/src/task/task.c.o -c /home/tera/Projects/Pen1X/src/task/task.c",
+  "file": "/home/tera/Projects/Pen1X/src/task/task.c",
+  "output": "CMakeFiles/main.dir/src/task/task.c.o"
 }
 ]

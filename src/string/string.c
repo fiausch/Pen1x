@@ -1,4 +1,5 @@
 #include "string/string.h"
+
 char tolower(char s1)
 {
     if (s1 >= 65 && s1 <= 90)

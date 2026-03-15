@@ -1,10 +1,10 @@
 #include "shell.h"
 #include "stdio.h"
-#include "../../stdlib/src/stdlib.h"
-#include "../../stdlib/src/pen1x.h"
+#include "stdlib.h"
+#include "pen1x.h"
 int main(int argc, char** argv)
 {
-    print("Pen1X v1.0.0\n");
+    print("Pen1x v1.0.0\n");
     while(1) 
     {
         print("> ");

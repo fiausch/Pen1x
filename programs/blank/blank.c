@@ -1,18 +1,9 @@
-#include "../stdlib/src/stdlib.h"
-#include "../stdlib/src/pen1x.h"
+#include "pen1x.h"
+#include "stdlib.h"
 #include "stdio.h"
-#include "string.h"
 int main(int argc, char** argv)
 {
-    char words[] = "hello how are you";
-
-    const char* token = strtok(words, " ");
-    while(token)
-    {
-        printf("%s\n", token);
-        token = strtok(NULL, " ");
-    }
-
+    printf("My age is %i\n", 98);
     while(1) 
     {
     }
