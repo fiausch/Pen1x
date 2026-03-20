@@ -1,4 +1,4 @@
-#include "disk.h"
+#include "disk/disk.h"
 #include "io/io.h"
 #include "config.h"
 #include "status.h"
