@@ -2,10 +2,8 @@
 #include "stdlib.h"
 #include "stdio.h"
 int main(int argc, char** argv)
-{
-    printf("My age is %i\n", 98);
-    while(1) 
-    {
-    }
+{    
+    printf("Ime mi je %s in star sem %i let","Miha", 22);
+    while(1){}
     return 0;
 }

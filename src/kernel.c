@@ -169,7 +169,7 @@ void kernel_main()
     // Initialize all the system keyboards
     keyboard_init();
         
-    print("Pozdravljeni, to je najin kernel release v1.0.0");
+    print("Pozdravljeni, to je najin kernel release v1.0.0\n");
 
     struct process* process = 0;
     int res = process_load_switch("0:/shell.elf", &process);
@@ -256,9 +256,9 @@ FUNCIOTNALITY:
     07:process laoding:
     
     struct process* process = 0;
-    int res = process_load("0:/blank.bin", &process);
+    int res = process_load("0:/prog.bin", &process);
     if(res != PEN1X_ALL_OK){
-        panic("failed to load blank.bin");
+        panic("failed to load prog.bin");
     }
     print("successfully loaded");
 

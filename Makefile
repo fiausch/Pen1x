@@ -15,12 +15,13 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 	dd if=./bin/boot.bin >> ./bin/os.bin
 	dd if=./bin/kernel.bin >> ./bin/os.bin
 	dd if=/dev/zero bs=1048576 count=16 >> ./bin/os.bin
-	sudo mount -t vfat ./bin/os.bin /mnt/d
+	sudo mount -t vfat ./bin/os.bin /mnt/kernel
 	# Copy a file over
-	sudo cp ./hello.txt /mnt/d
-	sudo cp ./programs/blank/blank.elf /mnt/d
-	sudo cp ./programs/shell/shell.elf /mnt/d
-	sudo umount /mnt/d
+	sudo cp ./hello.txt /mnt/kernel
+	sudo cp ./programs/prog/prog.elf /mnt/kernel
+	sudo cp ./programs/shell/shell.elf /mnt/kernel
+	ls /mnt/kernel
+	sudo umount /mnt/kernel
 	qemu-system-i386 -hda ./bin/os.bin
 
 ./bin/kernel.bin: $(FILES)
@@ -131,12 +132,12 @@ all: ./bin/boot.bin ./bin/kernel.bin user_programs
 
 user_programs:
 	cd ./programs/stdlib && $(MAKE) all
-	cd ./programs/blank && $(MAKE) all
+	cd ./programs/prog && $(MAKE) all
 	cd ./programs/shell && $(MAKE) all
 
 user_programs_clean:
 	cd ./programs/stdlib && $(MAKE) clean
-	cd ./programs/blank && $(MAKE) clean
+	cd ./programs/prog && $(MAKE) clean
 	cd ./programs/shell && $(MAKE) clean
 
 clean: user_programs_clean
@@ -163,8 +164,8 @@ mkdir:
 	mkdir -p ./build/keyboard
 	mkdir -p ./build/loader/formats
 	mkdir -p ./programs/
-	mkdir -p ./programs/blank
-	mkdir -p ./programs/blank/build
+	mkdir -p ./programs/prog
+	mkdir -p ./programs/prog/build
 	mkdir -p ./programs/stdlib/build
 
 setup: mkdir clean all
