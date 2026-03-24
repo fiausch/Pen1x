@@ -1,10 +1,10 @@
-#include "file.h"
+#include "fs/file.h"
 #include "config.h"
 #include "memory/memory.h"
 #include "memory/heap/kheap.h"
 #include "string/string.h"
 #include "disk/disk.h"
-#include "fat/fat16.h"
+#include "fs/fat/fat16.h"
 #include "status.h"
 #include "kernel.h"
 struct filesystem* filesystems[PEN1X_MAX_FILESYSTEMS];
