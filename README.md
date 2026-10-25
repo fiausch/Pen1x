@@ -1,7 +1,8 @@
 #     kernelSamNeVemImenaSe
-## to je kernel
+## this is easily my best work which is a shame since it really isn't that good
 
-nino hoce dat ime TetOS, whatever stari js hocem PEN1X
+
+
 ![gnu-and-penguin-color-300x276](https://github.com/user-attachments/assets/62cf698c-6448-4a4b-9474-3f1a0109c9ce)
 
 ## Makefile instructions:
@@ -13,10 +14,6 @@ make clean: removes the compiled binaries, object files and user programs
 
 make mkdir: creates the build folders (and the folders where the final bianry is stored) - I didnt user .keep but probably should
 
-
-
-    nino lenuh od lenuha
-    NIC ne dela
 
 
 ./bitch.sh: compiles the bootloader and kernel and needed object/binary files
